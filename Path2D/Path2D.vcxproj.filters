@@ -15,12 +15,18 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\Public\API.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
     <ClInclude Include="src\Path2D.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Core\Node.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="src\Path2D.cpp">
+    <ClCompile Include="src\Core\Node.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

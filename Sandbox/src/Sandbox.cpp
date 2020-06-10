@@ -1,9 +1,12 @@
-namespace Path2D
-{
-	__declspec(dllimport) void Print();
-}
+#include <iostream>
+#include "Path2D.h"
 
-void main()
+class CustomNode : public Path2D::Node
 {
-	Path2D::Print();
+
+};
+
+int main(int argc, char* argv[])
+{
+
 }

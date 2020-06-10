@@ -1,9 +1,11 @@
+// Only include from client applications
 #ifndef PATH2D
 #define PATH2D
 
-namespace Path2D
-{
-	__declspec(dllexport) void Print();
-}
+// API
+#include "Public/API.h"
+
+// Core
+#include "Core/Node.h"
 
 #endif // !PATH2D
