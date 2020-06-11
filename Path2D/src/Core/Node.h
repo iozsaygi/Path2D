@@ -11,10 +11,9 @@ namespace Path2D
 	{
 	public:
 		Node();
-		Node(const Vector2D position, const Vector2D scale);
+		Node(const Vector2D position);
 
 		Vector2D& GetPosition();
-		Vector2D& GetScale();
 		float GetFCost();
 
 	private:
@@ -22,7 +21,6 @@ namespace Path2D
 		float m_HCost;
 
 		Vector2D m_Position;
-		Vector2D m_Scale;
 	};
 }
 

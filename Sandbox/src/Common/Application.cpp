@@ -49,9 +49,8 @@ void Application::InitializeNodes(int worldWidth, int worldHeight)
 	{
 		for (int x = 0; x < worldWidth; x++)
 		{
-			Path2D::Vector2D position(x * 32, y * 32);
-			Path2D::Vector2D scale(32, 32);
-			m_Nodes.push_back(new Path2D::Node(position, scale));
+			Path2D::Vector2D position((x * 32) + 235, (y * 32) + 130);
+			m_Nodes.push_back(new Path2D::Node(position));
 		}
 	}
 }
@@ -96,8 +95,8 @@ void Application::Render()
 		SDL_Rect nodeBounds;
 		nodeBounds.x = node->GetPosition().GetX();
 		nodeBounds.y = node->GetPosition().GetY();
-		nodeBounds.w = node->GetScale().GetX();
-		nodeBounds.h = node->GetScale().GetY();
+		nodeBounds.w = 32;
+		nodeBounds.h = 32;
 
 		SDL_RenderDrawRect(m_Renderer, &nodeBounds);
 	}

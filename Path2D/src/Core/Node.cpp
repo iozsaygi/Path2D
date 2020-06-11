@@ -7,25 +7,18 @@ namespace Path2D
 		m_GCost = 0.0f;
 		m_HCost = 0.0f;
 		m_Position = Vector2D::Zero();
-		m_Scale = Vector2D::One();
 	}
 
-	Node::Node(const Vector2D position, const Vector2D scale)
+	Node::Node(const Vector2D position)
 	{
 		m_GCost = 0.0f;
 		m_HCost = 0.0f;
 		m_Position = position;
-		m_Scale = scale;
 	}
 
 	Vector2D& Node::GetPosition()
 	{
 		return m_Position;
-	}
-
-	Vector2D& Node::GetScale()
-	{
-		return m_Scale;
 	}
 
 	float Node::GetFCost()
