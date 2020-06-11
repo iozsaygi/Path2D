@@ -2,10 +2,13 @@
 #ifndef PATH2D
 #define PATH2D
 
-// API
-#include "Public/API.h"
-
 // Core
 #include "Core/Node.h"
+
+// Math
+#include "Math/Vector2D.h"
+
+// Public
+#include "Public/API.h"
 
 #endif // !PATH2D

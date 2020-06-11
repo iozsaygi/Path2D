@@ -26,15 +26,34 @@ Application::Application(int windowWidth, int windowHeight, const std::string& w
 
 	m_TargetFrameRate = targetFrameRate;
 	m_IsRunning = true;
+
+	m_Nodes = std::vector<Path2D::Node*>();
 }
 
 Application::~Application()
 {
+	for (Path2D::Node* node : m_Nodes)
+		delete node;
+
+	m_Nodes.clear();
 	m_IsRunning = false;
 
 	SDL_DestroyRenderer(m_Renderer);
 	SDL_DestroyWindow(m_Window);
 	SDL_Quit();
+}
+
+void Application::InitializeNodes(int worldWidth, int worldHeight)
+{
+	for (int y = 0; y < worldHeight; y++)
+	{
+		for (int x = 0; x < worldWidth; x++)
+		{
+			Path2D::Vector2D position(x * 32, y * 32);
+			Path2D::Vector2D scale(32, 32);
+			m_Nodes.push_back(new Path2D::Node(position, scale));
+		}
+	}
 }
 
 void Application::Run()
@@ -57,11 +76,29 @@ void Application::Run()
 		// Render process
 		SDL_SetRenderDrawColor(m_Renderer, 0, 0, 0, 1);
 		SDL_RenderClear(m_Renderer);
-		// Additional render calls goes here
+		
+		Render();
+
 		SDL_RenderPresent(m_Renderer);
 
 		frameTime = SDL_GetTicks() - frameStart;
 		if (frameDelay > frameTime)
 			SDL_Delay(frameDelay - frameTime);
+	}
+}
+
+void Application::Render()
+{
+	SDL_SetRenderDrawColor(m_Renderer, 255, 255, 255, 255);
+
+	for (Path2D::Node* node : m_Nodes)
+	{
+		SDL_Rect nodeBounds;
+		nodeBounds.x = node->GetPosition().GetX();
+		nodeBounds.y = node->GetPosition().GetY();
+		nodeBounds.w = node->GetScale().GetX();
+		nodeBounds.h = node->GetScale().GetY();
+
+		SDL_RenderDrawRect(m_Renderer, &nodeBounds);
 	}
 }
