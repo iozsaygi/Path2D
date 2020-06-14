@@ -1,3 +1,4 @@
+#include <assert.h>
 #include "Node.h"
 
 namespace Path2D
@@ -11,6 +12,7 @@ namespace Path2D
 		m_IsBlocked = false;
 		m_IsStartingNode = false;
 		m_IsEndingNode = false;
+		m_NeighborNodes = std::vector<Node*>();
 	}
 
 	Node::Node(const Vector2D& position)
@@ -22,6 +24,7 @@ namespace Path2D
 		m_IsBlocked = false;
 		m_IsStartingNode = false;
 		m_IsEndingNode = false;
+		m_NeighborNodes = std::vector<Node*>();
 	}
 
 	Vector2D& Node::GetPosition()
@@ -76,5 +79,13 @@ namespace Path2D
 	{
 		if (m_IsEndingNode != isEndingNode)
 			m_IsEndingNode = isEndingNode;
+	}
+
+	void Node::AddNeighborNode(Node* node)
+	{
+		assert(node != nullptr);
+
+		if (!std::count(m_NeighborNodes.begin(), m_NeighborNodes.end(), node))
+			m_NeighborNodes.push_back(node);
 	}
 }

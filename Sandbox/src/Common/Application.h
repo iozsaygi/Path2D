@@ -12,7 +12,7 @@ public:
 	Application(int windowWidth, int windowHeight, const std::string& windowTitle, int targetFrameRate);
 	~Application();
 
-	void InitializeNodes(int worldWidth, int worldHeight);
+	void InitializeNodes();
 	void InitializeAgent();
 	void Run();
 	void Render();

@@ -1,5 +1,8 @@
 #include "Application.h"
 
+#define WORLD_WIDTH 10
+#define WORLD_HEIGHT 10
+
 bool Application::m_IsRunning = false;
 int Application::m_TargetFrameRate = 0;
 SDL_Renderer* Application::m_Renderer = nullptr;
@@ -45,11 +48,11 @@ Application::~Application()
 	SDL_Quit();
 }
 
-void Application::InitializeNodes(int worldWidth, int worldHeight)
+void Application::InitializeNodes()
 {
-	for (int y = 0; y < worldHeight; y++)
+	for (int y = 0; y < WORLD_HEIGHT; y++)
 	{
-		for (int x = 0; x < worldWidth; x++)
+		for (int x = 0; x < WORLD_WIDTH; x++)
 		{
 			Path2D::Vector2D position((x * (32 + 5)) + 210, (y * (32 + 5)) + 120);
 			m_Nodes.push_back(new Path2D::Node(position));
@@ -108,7 +111,7 @@ void Application::Run()
 		}
 
 		// Render process
-		SDL_SetRenderDrawColor(m_Renderer, 0, 0, 0, 1);
+		SDL_SetRenderDrawColor(m_Renderer, 0, 0, 0, 255);
 		SDL_RenderClear(m_Renderer);
 		
 		Render();
@@ -134,7 +137,7 @@ void Application::Render()
 		nodeBounds.w = 32;
 		nodeBounds.h = 32;
 
-		SDL_RenderDrawRect(m_Renderer, &nodeBounds);
+		SDL_RenderFillRect(m_Renderer, &nodeBounds);
 	}
 }
 
