@@ -51,7 +51,7 @@ void Application::InitializeNodes(int worldWidth, int worldHeight)
 	{
 		for (int x = 0; x < worldWidth; x++)
 		{
-			Path2D::Vector2D position((x * (32 + 5)) + 220, (y * (32 + 5)) + 120);
+			Path2D::Vector2D position((x * (32 + 5)) + 210, (y * (32 + 5)) + 120);
 			m_Nodes.push_back(new Path2D::Node(position));
 		}
 	}
@@ -64,17 +64,27 @@ void Application::InitializeNodes(int worldWidth, int worldHeight)
 	m_Nodes[3]->SetIsBlocked(true);
 	m_Nodes[13]->SetIsBlocked(true);
 	m_Nodes[14]->SetIsBlocked(true);
+	m_Nodes[24]->SetIsBlocked(true);
 	m_Nodes[25]->SetIsBlocked(true);
 	m_Nodes[26]->SetIsBlocked(true);
 	m_Nodes[27]->SetIsBlocked(true);
 	m_Nodes[29]->SetIsBlocked(true);
+	m_Nodes[35]->SetIsBlocked(true);
+	m_Nodes[45]->SetIsBlocked(true);
+	m_Nodes[55]->SetIsBlocked(true);
+	m_Nodes[56]->SetIsBlocked(true);
+	m_Nodes[57]->SetIsBlocked(true);
+	m_Nodes[67]->SetIsBlocked(true);
+	m_Nodes[71]->SetIsBlocked(true);
+	m_Nodes[72]->SetIsBlocked(true);
+	m_Nodes[81]->SetIsBlocked(true);
 }
 
 void Application::InitializeAgent()
 {
 	// Create the agent and also set the start and ending nodes.
 	Path2D::Agent agent;
-	agent.CalculatePath(m_Nodes[0], m_Nodes[99]);
+	agent.CalculatePath(m_Nodes[82], m_Nodes[4]);
 }
 
 void Application::Run()
