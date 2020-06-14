@@ -11,14 +11,26 @@ namespace Path2D
 	{
 	public:
 		Node();
-		Node(const Vector2D position);
+		Node(const Vector2D& position);
 
 		Vector2D& GetPosition();
 		float GetFCost();
+		bool GetIsVisited();
+		bool GetIsBlocked();
+		bool GetIsStartingNode();
+		bool GetIsEndingNode();
+		void SetIsVisited(bool isVisited);
+		void SetIsBlocked(bool isBlocked);
+		void SetIsStartingNode(bool isStartingNode);
+		void SetIsEndingNode(bool isEndingNode);
 
 	private:
 		float m_GCost;
 		float m_HCost;
+		bool m_IsVisited;
+		bool m_IsBlocked;
+		bool m_IsStartingNode;
+		bool m_IsEndingNode;
 
 		Vector2D m_Position;
 	};

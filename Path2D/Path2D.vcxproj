@@ -19,12 +19,14 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\Core\Agent.h" />
     <ClInclude Include="src\Core\Node.h" />
     <ClInclude Include="src\Math\Vector2D.h" />
     <ClInclude Include="src\Path2D.h" />
     <ClInclude Include="src\Public\API.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\Core\Agent.cpp" />
     <ClCompile Include="src\Core\Node.cpp" />
     <ClCompile Include="src\Math\Vector2D.cpp" />
   </ItemGroup>

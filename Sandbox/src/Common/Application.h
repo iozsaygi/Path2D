@@ -4,7 +4,7 @@
 #include <string>
 #include <vector>
 #include <SDL.h>
-#include "Core/Node.h"
+#include "Path2D.h"
 
 class Application
 {
@@ -13,6 +13,7 @@ public:
 	~Application();
 
 	void InitializeNodes(int worldWidth, int worldHeight);
+	void InitializeAgent();
 	void Run();
 	void Render();
 
@@ -23,6 +24,8 @@ private:
 	static SDL_Window* m_Window;
 
 	std::vector<Path2D::Node*> m_Nodes;
+
+	SDL_Color GetNodeRenderColor(Path2D::Node* node);
 };
 
 #endif // !APPLICATION_H

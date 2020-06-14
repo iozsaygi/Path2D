@@ -3,6 +3,7 @@
 #define PATH2D
 
 // Core
+#include "Core/Agent.h"
 #include "Core/Node.h"
 
 // Math

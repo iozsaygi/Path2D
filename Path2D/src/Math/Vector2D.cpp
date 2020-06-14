@@ -1,3 +1,4 @@
+#include <math.h>
 #include "Vector2D.h"
 
 namespace Path2D
@@ -25,9 +26,9 @@ namespace Path2D
 		return Vector2D(0.0f, 0.0f);
 	}
 
-	Vector2D Vector2D::One()
+	float Vector2D::ManhattanDistance(const Vector2D& source, const Vector2D& destination)
 	{
-		return Vector2D(1.0f, 1.0f);
+		return fabsf(source.m_X - destination.m_X) + fabsf(source.m_Y - destination.m_Y);
 	}
 
 	float Vector2D::GetX()

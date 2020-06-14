@@ -33,7 +33,9 @@ Application::Application(int windowWidth, int windowHeight, const std::string& w
 Application::~Application()
 {
 	for (Path2D::Node* node : m_Nodes)
+	{
 		delete node;
+	}
 
 	m_Nodes.clear();
 	m_IsRunning = false;
@@ -49,10 +51,30 @@ void Application::InitializeNodes(int worldWidth, int worldHeight)
 	{
 		for (int x = 0; x < worldWidth; x++)
 		{
-			Path2D::Vector2D position((x * 32) + 235, (y * 32) + 130);
+			Path2D::Vector2D position((x * (32 + 5)) + 220, (y * (32 + 5)) + 120);
 			m_Nodes.push_back(new Path2D::Node(position));
 		}
 	}
+
+	// Setup starting and ending nodes.
+	m_Nodes[82]->SetIsStartingNode(true);
+	m_Nodes[4]->SetIsEndingNode(true);
+
+	// Setup some nodes as blocked.
+	m_Nodes[3]->SetIsBlocked(true);
+	m_Nodes[13]->SetIsBlocked(true);
+	m_Nodes[14]->SetIsBlocked(true);
+	m_Nodes[25]->SetIsBlocked(true);
+	m_Nodes[26]->SetIsBlocked(true);
+	m_Nodes[27]->SetIsBlocked(true);
+	m_Nodes[29]->SetIsBlocked(true);
+}
+
+void Application::InitializeAgent()
+{
+	// Create the agent and also set the start and ending nodes.
+	Path2D::Agent agent;
+	agent.CalculatePath(m_Nodes[0], m_Nodes[99]);
 }
 
 void Application::Run()
@@ -60,17 +82,20 @@ void Application::Run()
 	const int frameDelay = 1000 / m_TargetFrameRate;
 	Uint32 frameStart;
 	int frameTime;
-
 	SDL_Event event;
 
 	while (m_IsRunning)
 	{
 		frameStart = SDL_GetTicks();
 
-		// Handle events
 		SDL_PollEvent(&event);
-		if (event.type == SDL_QUIT)
+		
+		switch (event.type)
+		{
+		case SDL_QUIT:
 			m_IsRunning = false;
+			break;
+		}
 
 		// Render process
 		SDL_SetRenderDrawColor(m_Renderer, 0, 0, 0, 1);
@@ -88,10 +113,11 @@ void Application::Run()
 
 void Application::Render()
 {
-	SDL_SetRenderDrawColor(m_Renderer, 255, 255, 255, 255);
-
 	for (Path2D::Node* node : m_Nodes)
 	{
+		SDL_Color renderColor = GetNodeRenderColor(node);
+		SDL_SetRenderDrawColor(m_Renderer, renderColor.r, renderColor.g, renderColor.b, renderColor.a);
+
 		SDL_Rect nodeBounds;
 		nodeBounds.x = node->GetPosition().GetX();
 		nodeBounds.y = node->GetPosition().GetY();
@@ -100,4 +126,47 @@ void Application::Render()
 
 		SDL_RenderDrawRect(m_Renderer, &nodeBounds);
 	}
+}
+
+SDL_Color Application::GetNodeRenderColor(Path2D::Node* node)
+{
+	if (node != nullptr)
+	{
+		if (node->GetIsBlocked())
+		{
+			SDL_Color red;
+			red.r = 255;
+			red.g = 0;
+			red.b = 0;
+			red.a = 255;
+			return red;
+		}
+
+		if (node->GetIsStartingNode())
+		{
+			SDL_Color green;
+			green.r = 0;
+			green.g = 255;
+			green.b = 0;
+			green.a = 255;
+			return green;
+		}
+
+		if (node->GetIsEndingNode())
+		{
+			SDL_Color yellow;
+			yellow.r = 255;
+			yellow.g = 255;
+			yellow.b = 0;
+			yellow.a = 255;
+			return yellow;
+		}
+	}
+
+	SDL_Color white;
+	white.r = 255;
+	white.g = 255;
+	white.b = 255;
+	white.a = 255;
+	return white;
 }

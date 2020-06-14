@@ -13,7 +13,7 @@ namespace Path2D
 		Vector2D(const Vector2D& vector2D);
 
 		static Vector2D Zero();
-		static Vector2D One();
+		static float ManhattanDistance(const Vector2D& source, const Vector2D& destination);
 
 		float GetX();
 		float GetY();
