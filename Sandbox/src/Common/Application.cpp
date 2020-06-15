@@ -81,6 +81,30 @@ void Application::InitializeNodes()
 	m_Nodes[71]->SetIsBlocked(true);
 	m_Nodes[72]->SetIsBlocked(true);
 	m_Nodes[81]->SetIsBlocked(true);
+
+	// Setup the neighbor nodes.
+	for (int i = 0; i < m_Nodes.size(); i++)
+	{
+		if (i % WORLD_WIDTH != 0)
+		{
+			m_Nodes[i]->AddNeighborNode(m_Nodes[i - 1]);
+		}
+
+		if (i % (WORLD_WIDTH - 1) != 0 || i == 0)
+		{
+			m_Nodes[i]->AddNeighborNode(m_Nodes[i + 1]);
+		}
+
+		if (i - WORLD_WIDTH >= 0)
+		{
+			m_Nodes[i]->AddNeighborNode(m_Nodes[i - WORLD_WIDTH]);
+		}
+
+		if (i + WORLD_WIDTH < m_Nodes.size())
+		{
+			m_Nodes[i]->AddNeighborNode(m_Nodes[i + WORLD_WIDTH]);
+		}
+	}
 }
 
 void Application::InitializeAgent()

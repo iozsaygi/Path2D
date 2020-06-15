@@ -88,4 +88,9 @@ namespace Path2D
 		if (!std::count(m_NeighborNodes.begin(), m_NeighborNodes.end(), node))
 			m_NeighborNodes.push_back(node);
 	}
+
+	std::vector<Node*>& Node::GetNeighborNodes()
+	{
+		return m_NeighborNodes;
+	}
 }

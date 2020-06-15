@@ -25,6 +25,7 @@ namespace Path2D
 		void SetIsStartingNode(bool isStartingNode);
 		void SetIsEndingNode(bool isEndingNode);
 		void AddNeighborNode(Node* node);
+		std::vector<Node*>& GetNeighborNodes();
 
 	private:
 		float m_GCost;
