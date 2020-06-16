@@ -24,6 +24,8 @@ private:
 	static SDL_Window* m_Window;
 
 	std::vector<Path2D::Node*> m_Nodes;
+	Path2D::Node* m_StartingNode = nullptr;
+	Path2D::Node* m_EndingNode = nullptr;
 
 	SDL_Color GetNodeRenderColor(Path2D::Node* node);
 };

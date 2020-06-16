@@ -93,4 +93,12 @@ namespace Path2D
 	{
 		return m_NeighborNodes;
 	}
+
+	void Node::CalculateCosts(Node* startingNode, Node* endingNode)
+	{
+		assert(startingNode != nullptr);
+		assert(endingNode != nullptr);
+		m_GCost = Vector2D::ManhattanDistance(GetPosition(), startingNode->GetPosition());
+		m_HCost = Vector2D::ManhattanDistance(GetPosition(), endingNode->GetPosition());
+	}
 }

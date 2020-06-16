@@ -60,8 +60,11 @@ void Application::InitializeNodes()
 	}
 
 	// Setup starting and ending nodes.
-	m_Nodes[82]->SetIsStartingNode(true);
-	m_Nodes[4]->SetIsEndingNode(true);
+	m_StartingNode = m_Nodes[82];
+	m_EndingNode = m_Nodes[4];
+
+	m_StartingNode->SetIsStartingNode(true);
+	m_EndingNode->SetIsEndingNode(true);
 
 	// Setup some nodes as blocked.
 	m_Nodes[3]->SetIsBlocked(true);
@@ -104,6 +107,9 @@ void Application::InitializeNodes()
 		{
 			m_Nodes[i]->AddNeighborNode(m_Nodes[i + WORLD_WIDTH]);
 		}
+
+		// We had to do this at somewhere.
+		m_Nodes[i]->CalculateCosts(m_StartingNode, m_EndingNode);
 	}
 }
 
@@ -111,7 +117,7 @@ void Application::InitializeAgent()
 {
 	// Create the agent and also set the start and ending nodes.
 	Path2D::Agent agent;
-	agent.CalculatePath(m_Nodes[82], m_Nodes[4]);
+	agent.CalculatePath(m_StartingNode, m_EndingNode);
 }
 
 void Application::Run()
@@ -198,12 +204,22 @@ SDL_Color Application::GetNodeRenderColor(Path2D::Node* node)
 			yellow.a = 255;
 			return yellow;
 		}
+
+		if (node->GetIsVisited())
+		{
+			SDL_Color white;
+			white.r = 255;
+			white.g = 255;
+			white.b = 255;
+			white.a = 255;
+			return white;
+		}
 	}
 
-	SDL_Color white;
-	white.r = 255;
-	white.g = 255;
-	white.b = 255;
-	white.a = 255;
-	return white;
+	SDL_Color unVisited;
+	unVisited.r = 220;
+	unVisited.g = 220;
+	unVisited.b = 220;
+	unVisited.a = 255;
+	return unVisited;
 }
