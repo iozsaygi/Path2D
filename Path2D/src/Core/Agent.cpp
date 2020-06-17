@@ -1,9 +1,11 @@
+#include <iostream>
+#include <algorithm>
 #include <assert.h>
 #include "Agent.h"
 
 namespace Path2D
 {
-	std::vector<Node*>& Agent::CalculatePath(Node* startingNode, Node* endingNode) 
+	std::vector<Node*> Agent::CalculatePath(Node* startingNode, Node* endingNode) 
 	{
 		assert(startingNode != nullptr);
 		assert(endingNode != nullptr);
@@ -11,7 +13,6 @@ namespace Path2D
 		// Initialize our lists.
 		auto open = std::vector<Node*>();
 		auto closed = std::vector<Node*>();
-		auto path = std::vector<Node*>();
 
 		// Add start node to open list.
 		open.push_back(startingNode);
@@ -25,13 +26,13 @@ namespace Path2D
 			// Remove current from open list.
 			open.erase(std::remove(open.begin(), open.end(), current), open.end());
 			// Add current to the closed list.
+			current->SetIsVisited(true);
 			closed.push_back(current);
 
 			// Check if current node is the target (ending) node.
 			if (current == endingNode)
 			{
 				// Path found.
-				path = RetracePath(startingNode, endingNode);
 				break;
 			}
 
@@ -44,19 +45,19 @@ namespace Path2D
 
 				// If new path to the neighbor is shorter or neighbor is not in open list.
 				float movementCostToNeighbor = current->GetGCost() + Vector2D::ManhattanDistance(current->GetPosition(), neighborNode->GetPosition());
-				if (movementCostToNeighbor < neighborNode->GetGCost() || !std::count(open.begin(), open.end(), neighborNode))
+				if (movementCostToNeighbor < neighborNode->GetGCost() || std::find(open.begin(), open.end(), neighborNode) == open.end())
 				{
 					neighborNode->SetGCost(movementCostToNeighbor);
 					neighborNode->SetHCost(Vector2D::ManhattanDistance(neighborNode->GetPosition(), endingNode->GetPosition()));
 					neighborNode->SetParent(current);
 
-					if (!std::count(open.begin(), open.end(), neighborNode))
+					if (std::find(open.begin(), open.end(), neighborNode) == open.end())
 						open.push_back(neighborNode);
 				}
 			}
 		}
 
-		return path;
+		return RetracePath(startingNode, endingNode);
 	}
 
 	Node* Agent::GetNodeWithLowestFCost(std::vector<Node*>& nodes)
@@ -71,7 +72,7 @@ namespace Path2D
 		return nodeWithLowestFCost;
 	}
 
-	std::vector<Node*>& Agent::RetracePath(Node* startingNode, Node* endingNode)
+	std::vector<Node*> Agent::RetracePath(Node* startingNode, Node* endingNode)
 	{
 		assert(startingNode != nullptr);
 		assert(endingNode != nullptr);

@@ -1,3 +1,4 @@
+#include <iostream>
 #include "Application.h"
 
 #define WORLD_WIDTH 10
@@ -60,7 +61,7 @@ void Application::InitializeNodes()
 	}
 
 	// Setup starting and ending nodes.
-	m_StartingNode = m_Nodes[82];
+	m_StartingNode = m_Nodes[23];
 	m_EndingNode = m_Nodes[4];
 
 	m_StartingNode->SetIsStartingNode(true);
@@ -117,7 +118,10 @@ void Application::InitializeAgent()
 {
 	// Create the agent and also set the start and ending nodes.
 	Path2D::Agent agent;
-	agent.CalculatePath(m_StartingNode, m_EndingNode);
+	auto path = agent.CalculatePath(m_StartingNode, m_EndingNode);
+
+	for (Path2D::Node* node : path)
+		node->SetIsOnPath(true);
 }
 
 void Application::Run()
@@ -175,6 +179,16 @@ SDL_Color Application::GetNodeRenderColor(Path2D::Node* node)
 {
 	if (node != nullptr)
 	{
+		if (node->GetIsOnPath() && !node->GetIsEndingNode())
+		{
+			SDL_Color green;
+			green.r = 0;
+			green.g = 255;
+			green.b = 0;
+			green.a = 255;
+			return green;
+		}
+
 		if (node->GetIsBlocked())
 		{
 			SDL_Color red;
@@ -187,12 +201,12 @@ SDL_Color Application::GetNodeRenderColor(Path2D::Node* node)
 
 		if (node->GetIsStartingNode())
 		{
-			SDL_Color green;
-			green.r = 0;
-			green.g = 255;
-			green.b = 0;
-			green.a = 255;
-			return green;
+			SDL_Color blue;
+			blue.r = 0;
+			blue.g = 0;
+			blue.b = 255;
+			blue.a = 255;
+			return blue;
 		}
 
 		if (node->GetIsEndingNode())
@@ -217,9 +231,9 @@ SDL_Color Application::GetNodeRenderColor(Path2D::Node* node)
 	}
 
 	SDL_Color unVisited;
-	unVisited.r = 220;
-	unVisited.g = 220;
-	unVisited.b = 220;
+	unVisited.r = 150;
+	unVisited.g = 150;
+	unVisited.b = 150;
 	unVisited.a = 255;
 	return unVisited;
 }

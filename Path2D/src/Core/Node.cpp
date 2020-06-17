@@ -127,4 +127,14 @@ namespace Path2D
 		assert(node != nullptr);
 		m_Parent = node;
 	}
+
+	bool Node::GetIsOnPath()
+	{
+		return m_IsOnPath;
+	}
+
+	void Node::SetIsOnPath(bool isOnPath)
+	{
+		m_IsOnPath = isOnPath;
+	}
 }

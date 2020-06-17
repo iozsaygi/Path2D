@@ -32,6 +32,8 @@ namespace Path2D
 		void UpdateCosts(Node* startingNode, Node* endingNode);
 		Node* GetParent();
 		void SetParent(Node* node);
+		bool GetIsOnPath();
+		void SetIsOnPath(bool isOnPath);
 
 	private:
 		float m_GCost;
@@ -40,6 +42,7 @@ namespace Path2D
 		bool m_IsBlocked;
 		bool m_IsStartingNode;
 		bool m_IsEndingNode;
+		bool m_IsOnPath = false;
 		Vector2D m_Position;
 		std::vector<Node*> m_NeighborNodes;
 		Node* m_Parent = nullptr;
