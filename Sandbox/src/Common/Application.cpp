@@ -108,8 +108,8 @@ void Application::InitializeNodes()
 			m_Nodes[i]->AddNeighborNode(m_Nodes[i + WORLD_WIDTH]);
 		}
 
-		// We had to do this at somewhere.
-		m_Nodes[i]->CalculateCosts(m_StartingNode, m_EndingNode);
+		// Had to do this at somewhere.
+		m_Nodes[i]->UpdateCosts(m_StartingNode, m_EndingNode);
 	}
 }
 

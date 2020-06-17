@@ -32,6 +32,21 @@ namespace Path2D
 		return m_Position;
 	}
 
+	float Node::GetGCost()
+	{
+		return m_GCost;
+	}
+
+	void Node::SetGCost(float gCost)
+	{
+		m_GCost = gCost;
+	}
+
+	void Node::SetHCost(float hCost)
+	{
+		m_HCost = hCost;
+	}
+
 	float Node::GetFCost()
 	{
 		return m_GCost + m_HCost;
@@ -94,11 +109,22 @@ namespace Path2D
 		return m_NeighborNodes;
 	}
 
-	void Node::CalculateCosts(Node* startingNode, Node* endingNode)
+	void Node::UpdateCosts(Node* startingNode, Node* endingNode)
 	{
 		assert(startingNode != nullptr);
 		assert(endingNode != nullptr);
 		m_GCost = Vector2D::ManhattanDistance(GetPosition(), startingNode->GetPosition());
 		m_HCost = Vector2D::ManhattanDistance(GetPosition(), endingNode->GetPosition());
+	}
+
+	Node* Node::GetParent()
+	{
+		return m_Parent;
+	}
+
+	void Node::SetParent(Node* node)
+	{
+		assert(node != nullptr);
+		m_Parent = node;
 	}
 }

@@ -15,6 +15,9 @@ namespace Path2D
 		Node(const Vector2D& position);
 
 		Vector2D& GetPosition();
+		float GetGCost();
+		void SetGCost(float gCost);
+		void SetHCost(float hCost);
 		float GetFCost();
 		bool GetIsVisited();
 		bool GetIsBlocked();
@@ -26,7 +29,9 @@ namespace Path2D
 		void SetIsEndingNode(bool isEndingNode);
 		void AddNeighborNode(Node* node);
 		std::vector<Node*>& GetNeighborNodes();
-		void CalculateCosts(Node* startingNode, Node* endingNode);
+		void UpdateCosts(Node* startingNode, Node* endingNode);
+		Node* GetParent();
+		void SetParent(Node* node);
 
 	private:
 		float m_GCost;
@@ -37,6 +42,7 @@ namespace Path2D
 		bool m_IsEndingNode;
 		Vector2D m_Position;
 		std::vector<Node*> m_NeighborNodes;
+		Node* m_Parent = nullptr;
 	};
 }
 
