@@ -1,11 +1,10 @@
-#include <iostream>
 #include <algorithm>
 #include <assert.h>
 #include "Agent.h"
 
 namespace Path2D
 {
-	std::vector<Node*> Agent::CalculatePath(Node* startingNode, Node* endingNode) 
+	std::vector<Node*> Agent::CalculatePath(Node* startingNode, Node* endingNode)
 	{
 		assert(startingNode != nullptr);
 		assert(endingNode != nullptr);

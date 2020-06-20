@@ -1,5 +1,6 @@
 #include <iostream>
 #include "Application.h"
+#include "Utilities/Physics.h"
 
 #define WORLD_WIDTH 10
 #define WORLD_HEIGHT 10
@@ -61,8 +62,8 @@ void Application::InitializeNodes()
 	}
 
 	// Setup starting and ending nodes.
-	m_StartingNode = m_Nodes[23];
-	m_EndingNode = m_Nodes[4];
+	m_StartingNode = m_Nodes[11];
+	m_EndingNode = m_Nodes[5];
 
 	m_StartingNode->SetIsStartingNode(true);
 	m_EndingNode->SetIsEndingNode(true);
@@ -118,9 +119,9 @@ void Application::InitializeAgent()
 {
 	// Create the agent and also set the start and ending nodes.
 	Path2D::Agent agent;
-	auto path = agent.CalculatePath(m_StartingNode, m_EndingNode);
+	m_Path = agent.CalculatePath(m_StartingNode, m_EndingNode);
 
-	for (Path2D::Node* node : path)
+	for (Path2D::Node* node : m_Path)
 		node->SetIsOnPath(true);
 }
 
@@ -136,18 +137,83 @@ void Application::Run()
 		frameStart = SDL_GetTicks();
 
 		SDL_PollEvent(&event);
-		
+
 		switch (event.type)
 		{
 		case SDL_QUIT:
 			m_IsRunning = false;
+			break;
+
+		case SDL_MOUSEBUTTONDOWN:
+			if (event.button.button == SDL_BUTTON_LEFT)
+			{
+				// Cycle through each node and find if user clicked inside any of it.
+				for (int i = 0; i < m_Nodes.size(); i++)
+				{
+					Path2D::Vector2D nodePosition = m_Nodes[i]->GetPosition();
+					SDL_Rect nodeRectangle;
+					nodeRectangle.x = nodePosition.GetX();
+					nodeRectangle.y = nodePosition.GetY();
+					nodeRectangle.w = 32;
+					nodeRectangle.h = 32;
+					int mouseX, mouseY = 0;
+					SDL_GetMouseState(&mouseX, &mouseY);
+					if (IsPositionInsideRectangle(mouseX, mouseY, &nodeRectangle))
+					{
+						for (Path2D::Node* node : m_Path)
+							node->SetIsOnPath(false);
+
+						// Clear the path.
+						m_Path.clear();
+
+						m_Nodes[i]->SetIsBlocked(true);
+						// Recalculate the path.
+						Path2D::Agent agent;
+						m_Path = agent.CalculatePath(m_StartingNode, m_EndingNode);
+
+						for (Path2D::Node* node : m_Path)
+							node->SetIsOnPath(true);
+					}
+				}
+			}
+			else if (event.button.button == SDL_BUTTON_RIGHT)
+			{
+				// Cycle through each node and find if user clicked inside any of it.
+				for (int i = 0; i < m_Nodes.size(); i++)
+				{
+					Path2D::Vector2D nodePosition = m_Nodes[i]->GetPosition();
+					SDL_Rect nodeRectangle;
+					nodeRectangle.x = nodePosition.GetX();
+					nodeRectangle.y = nodePosition.GetY();
+					nodeRectangle.w = 32;
+					nodeRectangle.h = 32;
+					int mouseX, mouseY = 0;
+					SDL_GetMouseState(&mouseX, &mouseY);
+					if (IsPositionInsideRectangle(mouseX, mouseY, &nodeRectangle))
+					{
+						for (Path2D::Node* node : m_Path)
+							node->SetIsOnPath(false);
+
+						// Clear the path.
+						m_Path.clear();
+
+						m_Nodes[i]->SetIsBlocked(false);
+						// Recalculate the path.
+						Path2D::Agent agent;
+						m_Path = agent.CalculatePath(m_StartingNode, m_EndingNode);
+
+						for (Path2D::Node* node : m_Path)
+							node->SetIsOnPath(true);
+					}
+				}
+			}
 			break;
 		}
 
 		// Render process
 		SDL_SetRenderDrawColor(m_Renderer, 0, 0, 0, 255);
 		SDL_RenderClear(m_Renderer);
-		
+
 		Render();
 
 		SDL_RenderPresent(m_Renderer);

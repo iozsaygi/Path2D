@@ -24,6 +24,7 @@ private:
 	static SDL_Window* m_Window;
 
 	std::vector<Path2D::Node*> m_Nodes;
+	std::vector<Path2D::Node*> m_Path;
 	Path2D::Node* m_StartingNode = nullptr;
 	Path2D::Node* m_EndingNode = nullptr;
 
