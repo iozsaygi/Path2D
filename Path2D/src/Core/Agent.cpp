@@ -81,6 +81,9 @@ namespace Path2D
 
 		while (currentNode != startingNode)
 		{
+			if (currentNode->GetIsBlocked() || currentNode->GetParent()->GetIsBlocked())
+				break;
+
 			path.push_back(currentNode);
 			currentNode = currentNode->GetParent();
 		}

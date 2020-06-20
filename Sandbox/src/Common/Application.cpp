@@ -160,19 +160,22 @@ void Application::Run()
 					SDL_GetMouseState(&mouseX, &mouseY);
 					if (IsPositionInsideRectangle(mouseX, mouseY, &nodeRectangle))
 					{
-						for (Path2D::Node* node : m_Path)
-							node->SetIsOnPath(false);
+						if (!m_Nodes[i]->GetIsStartingNode() && !m_Nodes[i]->GetIsEndingNode())
+						{
+							for (Path2D::Node* node : m_Path)
+								node->SetIsOnPath(false);
 
-						// Clear the path.
-						m_Path.clear();
+							// Clear the path.
+							m_Path.clear();
 
-						m_Nodes[i]->SetIsBlocked(true);
-						// Recalculate the path.
-						Path2D::Agent agent;
-						m_Path = agent.CalculatePath(m_StartingNode, m_EndingNode);
+							m_Nodes[i]->SetIsBlocked(true);
+							// Recalculate the path.
+							Path2D::Agent agent;
+							m_Path = agent.CalculatePath(m_StartingNode, m_EndingNode);
 
-						for (Path2D::Node* node : m_Path)
-							node->SetIsOnPath(true);
+							for (Path2D::Node* node : m_Path)
+								node->SetIsOnPath(true);
+						}
 					}
 				}
 			}
