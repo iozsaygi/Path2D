@@ -7,6 +7,11 @@ Path2D is a simple pathfinding library that uses A* search algorithm to calculat
 Visualization tool is included with the library (which is written in SDL with C++) but it's not that convenient at the moment.
 
 ## Visualization Tool Instructions
+* Blue node is the starting node.
+* Yellow node is the ending node.
+* White nodes represents the visited nodes.
+* Gray nodes represents the unvisited nodes.
+* Green nodes represents the nodes in optimal path.
 * Left click on node to mark it as blocked.
 * Right click on node to mark it as unblocked.
 
