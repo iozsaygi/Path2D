@@ -8,6 +8,7 @@ Visualization tool is included with the library (which is written in SDL with C+
 
 ## Visualization Tool Instructions
 * Blue node is the starting node
+* Red nodes represents the blocked nodes
 * Yellow node is the ending node
 * White nodes represents the visited nodes
 * Gray nodes represents the unvisited nodes
@@ -17,6 +18,14 @@ Visualization tool is included with the library (which is written in SDL with C+
 
 ## Dependencies
 * [SDL2](https://www.libsdl.org/)
+
+## Building
+* Download and install [Visual Studio](https://visualstudio.microsoft.com/), make sure to check "Desktop development with C++" workload in Visual Studio Installer
+* Download [SDL2](https://www.libsdl.org/) and extract it in folder called "dependencies"
+* Clone the repository ```git clone https://github.com/iozsaygi/Path2D```
+* Put the dependencies folder near project's solution file
+* Open up the .sln file and make sure the platform is x86
+* Build the "Sandbox" project
 
 ## License
 [MIT License](https://github.com/iozsaygi/Path2D/blob/master/LICENSE)
