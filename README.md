@@ -23,6 +23,7 @@ Visualization tool is included with the library (which is written in SDL with C+
 * Windows
   * Download and install [Visual Studio](https://visualstudio.microsoft.com/), make sure to check "Desktop development with C++" workload in Visual Studio Installer
   * Download [SDL2](https://www.libsdl.org/) and extract it in folder called "dependencies"
+  * Make sure to rename extracted folder to "SDL2"
   * Clone the repository ```git clone https://github.com/iozsaygi/Path2D```
   * Put the dependencies folder near project's solution file
   * Open up the .sln file and make sure the platform is x86
